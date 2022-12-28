@@ -1,0 +1,22 @@
+## First thing first. don't forget to create serviceaccount for this pod.
+## You can create new serviceaccount by executing command below.
+## -- kubectl create sa app-vault-test-sa -n <your-namespace> --
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-vault-test
+  namespace: <your-namespace>
+  labels:
+    app: app-vault-test
+  annotations:
+    # if istio exist in your current cluster. use line-code below
+    vault.hashicorp.com/agent-init-first: "true" 
+
+    vault.hashicorp.com/agent-inject: "true"
+    vault.hashicorp.com/role: "app-vault-test"
+    vault.hashicorp.com/agent-inject-secret-credentials.txt: "secret/data/app-vault-test/config"
+spec:
+  serviceAccountName: app-vault-test-sa
+  containers:
+    - name: app-vault-test
+      image: jweissig/app:0.0.1
