@@ -1,0 +1,16 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: vault
+  namespace: <your-namespace>
+  labels:
+    helm.sh/chart: vault-0.22.1
+    app.kubernetes.io/name: vault
+    app.kubernetes.io/instance: vault
+spec:
+  maxUnavailable: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vault
+      app.kubernetes.io/instance: vault
+      component: server

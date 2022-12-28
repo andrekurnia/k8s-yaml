@@ -50,7 +50,7 @@ metadata:
   name: vault
   namespace: <your-namespace>
   labels:
-    helm.sh/chart: vault-0.22.1
+
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
 
@@ -80,7 +80,7 @@ metadata:
   name: vault
   namespace: <your-namespace>
   labels:
-    helm.sh/chart: vault-0.22.1
+
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
 
@@ -92,7 +92,7 @@ metadata:
   name: vault-config
   namespace: <your-namespace>
   labels:
-    helm.sh/chart: vault-0.22.1
+
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
 
@@ -172,7 +172,7 @@ kind: ClusterRoleBinding
 metadata:
   name: vault-server-binding
   labels:
-    helm.sh/chart: vault-0.22.1
+
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
 
@@ -192,7 +192,7 @@ metadata:
   namespace: <your-namespace>
   name: vault-discovery-role
   labels:
-    helm.sh/chart: vault-0.22.1
+
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
 
@@ -208,7 +208,7 @@ metadata:
   name: vault-discovery-rolebinding
   namespace: <your-namespace>
   labels:
-    helm.sh/chart: vault-0.22.1
+
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
 
@@ -250,7 +250,7 @@ metadata:
   name: vault-active
   namespace: <your-namespace>
   labels:
-    helm.sh/chart: vault-0.22.1
+
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
 
@@ -280,7 +280,7 @@ metadata:
   name: vault-standby
   namespace: <your-namespace>
   labels:
-    helm.sh/chart: vault-0.22.1
+
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
 
@@ -309,7 +309,7 @@ metadata:
   name: vault-internal
   namespace: <your-namespace>
   labels:
-    helm.sh/chart: vault-0.22.1
+
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
 
@@ -339,7 +339,7 @@ metadata:
   name: vault
   namespace: <your-namespace>
   labels:
-    helm.sh/chart: vault-0.22.1
+
     app.kubernetes.io/name: vault
     app.kubernetes.io/instance: vault
 
@@ -506,7 +506,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: vault-0.22.1
+    
         app.kubernetes.io/name: vault
         app.kubernetes.io/instance: vault
         component: server

@@ -1,0 +1,126 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vault-agent-injector-svc
+  namespace: <your-namespace>
+  labels:
+    app.kubernetes.io/name: vault-agent-injector
+    app.kubernetes.io/instance: vault
+spec:
+  ports:
+  - name: https
+    port: 443
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/name: vault-agent-injector
+    app.kubernetes.io/instance: vault
+    component: webhook
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: vault-active
+  namespace: <your-namespace>
+  labels:
+    app.kubernetes.io/name: vault
+    app.kubernetes.io/instance: vault
+    vault-active: "true"
+  annotations:
+spec:
+  publishNotReadyAddresses: true
+  ports:
+    - name: http
+      port: 8200
+      targetPort: 8200
+    - name: https-internal
+      port: 8201
+      targetPort: 8201
+  selector:
+    app.kubernetes.io/name: vault
+    app.kubernetes.io/instance: vault
+    component: server
+    vault-active: "true"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: vault-standby
+  namespace: <your-namespace>
+  labels:
+    app.kubernetes.io/name: vault
+    app.kubernetes.io/instance: vault
+  annotations:
+spec:
+  publishNotReadyAddresses: true
+  ports:
+    - name: http
+      port: 8200
+      targetPort: 8200
+    - name: https-internal
+      port: 8201
+      targetPort: 8201
+  selector:
+    app.kubernetes.io/name: vault
+    app.kubernetes.io/instance: vault
+    component: server
+    vault-active: "false"
+
+---
+
+# Service for Vault cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: vault-internal
+  namespace: <your-namespace>
+  labels:
+    app.kubernetes.io/name: vault
+    app.kubernetes.io/instance: vault
+    vault-internal: "true"
+  annotations:
+spec:
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: "http"
+      port: 8200
+      targetPort: 8200
+    - name: https-internal
+      port: 8201
+      targetPort: 8201
+  selector:
+    app.kubernetes.io/name: vault
+    app.kubernetes.io/instance: vault
+    component: server
+
+---
+
+# Service for Vault cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: vault
+  namespace: <your-namespace>
+  labels:
+    app.kubernetes.io/name: vault
+    app.kubernetes.io/instance: vault
+  annotations:
+spec:
+  # We want the servers to become available even if they're not ready
+  # since this DNS is also used for join operations.
+  publishNotReadyAddresses: true
+  ports:
+    - name: http
+      port: 8200
+      targetPort: 8200
+    - name: https-internal
+      port: 8201
+      targetPort: 8201
+  selector:
+    app.kubernetes.io/name: vault
+    app.kubernetes.io/instance: vault
+    component: server

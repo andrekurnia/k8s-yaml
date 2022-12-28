@@ -1,11 +1,9 @@
-# Basic Secret Injection
-
+# How to integrate vault in k8s and the deployment
 
 In order for us to start using secrets in vault, we need to setup a policy.
 
-
 ```
-#Create a role for our app
+## Create a role for our app
 
 kubectl -n vault-example exec -it vault-example-0 sh 
 
