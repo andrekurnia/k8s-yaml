@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-claim
+  namespace: infra
+spec:
+  storageClassName: jenkins
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: jenkins-pvc
+#   namespace: jenkins
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 5Gi
+#   storageClassName: default
+#   volumeName: jenkins
